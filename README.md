@@ -11,6 +11,7 @@ Currently identifies the following credit card companies:
 * Diners Club enRoute
 * Diners Club International
 * Discover
+* Elo
 * InterPayment
 * InstaPayment
 * JCB
