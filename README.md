@@ -11,6 +11,7 @@ Currently identifies the following credit card companies:
 * Diners Club enRoute
 * Diners Club International
 * Discover
+* Elo
 * InterPayment
 * InstaPayment
 * JCB
@@ -22,7 +23,7 @@ Currently identifies the following credit card companies:
 ## Installation
 
 ```bash
-go get github.com/hubcash/cards
+go get github.com/hubcash/card
 ```
 
 ## Quick Start
