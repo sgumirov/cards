@@ -1,5 +1,5 @@
-// Package card provides methods for validating credit cards
-package card
+// Package provides methods for validating credit cards
+package cards
 
 import (
 	"errors"
