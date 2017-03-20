@@ -1,4 +1,4 @@
-package creditcard
+package card
 
 import (
 	. "github.com/smartystreets/goconvey/convey"
