@@ -153,19 +153,23 @@ func (c *Card) MethodValidate() (Company, error) {
 		(ccDigits.At(6) >= 655000 && ccDigits.At(6) <= 655019) ||
 		(ccDigits.At(6) >= 655021 && ccDigits.At(6) <= 655021):
 		return Company{"elo", "Elo"}, nil
+	case ccDigits.At(6) == 384100 || ccDigits.At(6) == 384140 || ccDigits.At(6) == 384160 ||
+		ccDigits.At(6) == 606282 || ccDigits.At(6) == 637095 || ccDigits.At(4) == 637568 ||
+		ccDigits.At(4) == 637599 || ccDigits.At(4) == 637609 || ccDigits.At(4) == 637612:
+		return Company{"hipercard", "Hipercard"}, nil
 	case ccDigits.At(2) == 34 || ccDigits.At(2) == 37:
-		return Company{"amex", "American Express"}, nil
+		return Company{"amex", "Amex"}, nil
 	case ccDigits.At(4) == 5610 || (ccDigits.At(6) >= 560221 && ccDigits.At(6) <= 560225):
 		return Company{"bankcard", "Bankcard"}, nil
 	case ccDigits.At(2) == 62:
 		return Company{"china unionpay", "China UnionPay"}, nil
 	case ccDigits.At(3) >= 300 && ccDigits.At(3) <= 305 && ccLen == 15:
-		return Company{"diners club carte blanche", "Diners Club Carte Blanche"}, nil
+		return Company{"diners club carte blanche", "Diners"}, nil
 	case ccDigits.At(4) == 2014 || ccDigits.At(4) == 2149:
-		return Company{"diners club enroute", "Diners Club enRoute"}, nil
+		return Company{"diners club enroute", "Diners"}, nil
 	case ((ccDigits.At(3) >= 300 && ccDigits.At(3) <= 305) || ccDigits.At(3) == 309 ||
 		ccDigits.At(2) == 36 || ccDigits.At(2) == 38 || ccDigits.At(2) == 39) && ccLen <= 14:
-		return Company{"diners club international", "Diners Club International"}, nil
+		return Company{"diners club international", "Diners"}, nil
 	case ccDigits.At(4) == 6011 || (ccDigits.At(6) >= 622126 && ccDigits.At(6) <= 622925) ||
 		(ccDigits.At(3) >= 644 && ccDigits.At(3) <= 649) || ccDigits.At(2) == 65:
 		return Company{"discover", "Discover"}, nil
@@ -173,7 +177,7 @@ func (c *Card) MethodValidate() (Company, error) {
 		return Company{"interpayment", "InterPayment"}, nil
 	case ccDigits.At(3) >= 637 && ccDigits.At(3) <= 639 && ccLen == 16:
 		return Company{"instapayment", "InstaPayment"}, nil
-	case ccDigits.At(4) >= 3528 && ccDigits.At(4) <= 3589:
+	case ccDigits.At(2) >= 35:
 		return Company{"jcb", "JCB"}, nil
 	case ccDigits.At(4) == 5018 || ccDigits.At(4) == 5020 || ccDigits.At(4) == 5038 ||
 		ccDigits.At(4) == 5612 || ccDigits.At(4) == 5893 || ccDigits.At(4) == 6304 ||
@@ -183,7 +187,9 @@ func (c *Card) MethodValidate() (Company, error) {
 	case ccDigits.At(4) == 5019:
 		return Company{"dankort", "Dankort"}, nil
 	case ccDigits.At(2) >= 51 && ccDigits.At(2) <= 55:
-		return Company{"mastercard", "MasterCard"}, nil
+		return Company{"mastercard", "Mastercard"}, nil
+	case ccDigits.At(2) >= 50:
+		return Company{"aura", "Aura"}, nil
 	case ccDigits.At(4) == 4026 || ccDigits.At(6) == 417500 || ccDigits.At(4) == 4405 ||
 		ccDigits.At(4) == 4508 || ccDigits.At(4) == 4844 || ccDigits.At(4) == 4913 || ccDigits.At(4) == 4917:
 		return Company{"visa electron", "Visa Electron"}, nil
