@@ -3,6 +3,7 @@
 Basic credit card validation using the [Luhn algorithm](http://en.wikipedia.org/wiki/Luhn_algorithm)
 
 Currently identifies the following credit card companies:
+* Aura
 * American Express
 * Bankcard
 * China Unionpay
@@ -15,6 +16,7 @@ Currently identifies the following credit card companies:
 * InterPayment
 * InstaPayment
 * JCB
+* Hipercard
 * Maestro
 * MasterCard
 * Visa
