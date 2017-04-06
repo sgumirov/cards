@@ -23,7 +23,7 @@ Currently identifies the following credit card companies:
 ## Installation
 
 ```bash
-go get github.com/hubcash/card
+go get github.com/hubcash/cards
 ```
 
 ## Quick Start
