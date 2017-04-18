@@ -204,168 +204,186 @@ func TestMethod(t *testing.T) {
 	Convey("Card method should validate even when there's less than 13 characters", t, func() {
 		Convey("Should work for American Express", func() {
 			card := Card{Number: "3782822463", Cvv: "1111", Month: month, Year: year}
-			err := card.Method()
+			err := card.Brand()
 
 			So(err, ShouldBeNil)
-			So(card.Company.Short, ShouldEqual, "amex")
-			So(card.Company.Long, ShouldEqual, "American Express")
+			So(card.Company.Code, ShouldEqual, "amex")
+			So(card.Company.Name, ShouldEqual, "American Express")
+		})
+
+		Convey("Should work for Elo", func() {
+			card := Card{Number: "50673090006418", Cvv: "111", Month: month, Year: year}
+			err := card.Brand()
+
+			So(err, ShouldBeNil)
+			So(card.Company.Code, ShouldEqual, "elo")
+			So(card.Company.Name, ShouldEqual, "Elo")
 		})
 
 		Convey("Should work for Bankcard", func() {
 			Convey("5610", func() {
 				card := Card{Number: "56101111111", Cvv: "1111", Month: month, Year: year}
-				err := card.Method()
+				err := card.Brand()
 
 				So(err, ShouldBeNil)
-				So(card.Company.Short, ShouldEqual, "bankcard")
-				So(card.Company.Long, ShouldEqual, "Bankcard")
+				So(card.Company.Code, ShouldEqual, "bankcard")
+				So(card.Company.Name, ShouldEqual, "Bankcard")
 			})
 
 			Convey("560221 - 560225", func() {
 				card := Card{Number: "56022111111", Cvv: "1111", Month: month, Year: year}
-				err := card.Method()
+				err := card.Brand()
 
 				So(err, ShouldBeNil)
-				So(card.Company.Short, ShouldEqual, "bankcard")
-				So(card.Company.Long, ShouldEqual, "Bankcard")
+				So(card.Company.Code, ShouldEqual, "bankcard")
+				So(card.Company.Name, ShouldEqual, "Bankcard")
 			})
 		})
 
 		Convey("Should work for Diners club", func() {
 			Convey("Carte blanche", func() {
 				card := Card{Number: "300221111111111", Cvv: "1111", Month: month, Year: year}
-				err := card.Method()
+				err := card.Brand()
 
 				So(err, ShouldBeNil)
-				So(card.Company.Short, ShouldEqual, "diners club carte blanche")
-				So(card.Company.Long, ShouldEqual, "Diners Club Carte Blanche")
+				So(card.Company.Code, ShouldEqual, "diners club carte blanche")
+				So(card.Company.Name, ShouldEqual, "Diners")
 			})
 
 			Convey("Club enRoute", func() {
 				card := Card{Number: "20142111111111", Cvv: "1111", Month: month, Year: year}
-				err := card.Method()
+				err := card.Brand()
 
 				So(err, ShouldBeNil)
-				So(card.Company.Short, ShouldEqual, "diners club enroute")
-				So(card.Company.Long, ShouldEqual, "Diners Club enRoute")
+				So(card.Company.Code, ShouldEqual, "diners club enroute")
+				So(card.Company.Name, ShouldEqual, "Diners")
 			})
 
 			Convey("Club international", func() {
 				card := Card{Number: "3002111111111", Cvv: "1111", Month: month, Year: year}
-				err := card.Method()
+				err := card.Brand()
 
 				So(err, ShouldBeNil)
-				So(card.Company.Short, ShouldEqual, "diners club international")
-				So(card.Company.Long, ShouldEqual, "Diners Club International")
+				So(card.Company.Code, ShouldEqual, "diners club international")
+				So(card.Company.Name, ShouldEqual, "Diners")
 			})
 		})
 
 		Convey("Should work for China UnionPay", func() {
 			card := Card{Number: "62111111111", Cvv: "1111", Month: month, Year: year}
-			err := card.Method()
+			err := card.Brand()
 
 			So(err, ShouldBeNil)
-			So(card.Company.Short, ShouldEqual, "china unionpay")
-			So(card.Company.Long, ShouldEqual, "China UnionPay")
+			So(card.Company.Code, ShouldEqual, "china unionpay")
+			So(card.Company.Name, ShouldEqual, "China UnionPay")
 		})
 
 		Convey("Should work for Dankort", func() {
 			card := Card{Number: "501955555", Cvv: "1111", Month: month, Year: year}
-			err := card.Method()
+			err := card.Brand()
 
 			So(err, ShouldBeNil)
-			So(card.Company.Short, ShouldEqual, "dankort")
-			So(card.Company.Long, ShouldEqual, "Dankort")
+			So(card.Company.Code, ShouldEqual, "dankort")
+			So(card.Company.Name, ShouldEqual, "Dankort")
 		})
 
 		Convey("Should work for Diners Club", func() {
 			card := Card{Number: "30569309025", Cvv: "1111", Month: month, Year: year}
-			err := card.Method()
+			err := card.Brand()
 
 			So(err, ShouldBeNil)
-			So(card.Company.Short, ShouldEqual, "diners club international")
-			So(card.Company.Long, ShouldEqual, "Diners Club International")
+			So(card.Company.Code, ShouldEqual, "diners club international")
+			So(card.Company.Name, ShouldEqual, "Diners")
 		})
 
 		Convey("Should work for Discover", func() {
 			card := Card{Number: "60111111111", Cvv: "1111", Month: month, Year: year}
-			err := card.Method()
+			err := card.Brand()
 
 			So(err, ShouldBeNil)
-			So(card.Company.Short, ShouldEqual, "discover")
-			So(card.Company.Long, ShouldEqual, "Discover")
+			So(card.Company.Code, ShouldEqual, "discover")
+			So(card.Company.Name, ShouldEqual, "Discover")
 		})
 
 		Convey("Should work for InterPayment", func() {
 			card := Card{Number: "6360111331111111", Cvv: "1111", Month: month, Year: year}
-			err := card.Method()
+			err := card.Brand()
 
 			So(err, ShouldBeNil)
-			So(card.Company.Short, ShouldEqual, "interpayment")
-			So(card.Company.Long, ShouldEqual, "InterPayment")
+			So(card.Company.Code, ShouldEqual, "interpayment")
+			So(card.Company.Name, ShouldEqual, "InterPayment")
 		})
 
 		Convey("Should work for InstaPayment", func() {
 			card := Card{Number: "6370111331111111", Cvv: "1111", Month: month, Year: year}
-			err := card.Method()
+			err := card.Brand()
 
 			So(err, ShouldBeNil)
-			So(card.Company.Short, ShouldEqual, "instapayment")
-			So(card.Company.Long, ShouldEqual, "InstaPayment")
+			So(card.Company.Code, ShouldEqual, "instapayment")
+			So(card.Company.Name, ShouldEqual, "InstaPayment")
 		})
 
 		Convey("Should work for JCB", func() {
 			card := Card{Number: "353011133", Cvv: "1111", Month: month, Year: year}
-			err := card.Method()
+			err := card.Brand()
 
 			So(err, ShouldBeNil)
-			So(card.Company.Short, ShouldEqual, "jcb")
-			So(card.Company.Long, ShouldEqual, "JCB")
+			So(card.Company.Code, ShouldEqual, "jcb")
+			So(card.Company.Name, ShouldEqual, "JCB")
 		})
 
 		Convey("Should work for Maestro", func() {
 			card := Card{Number: "501855555", Cvv: "1111", Month: month, Year: year}
-			err := card.Method()
+			err := card.Brand()
 
 			So(err, ShouldBeNil)
-			So(card.Company.Short, ShouldEqual, "maestro")
-			So(card.Company.Long, ShouldEqual, "Maestro")
+			So(card.Company.Code, ShouldEqual, "maestro")
+			So(card.Company.Name, ShouldEqual, "Maestro")
 		})
 
-		Convey("Should work for MasterCard", func() {
+		Convey("Should work for Mastercard", func() {
 			card := Card{Number: "55555555", Cvv: "1111", Month: month, Year: year}
-			err := card.Method()
+			err := card.Brand()
 
 			So(err, ShouldBeNil)
-			So(card.Company.Short, ShouldEqual, "mastercard")
-			So(card.Company.Long, ShouldEqual, "MasterCard")
+			So(card.Company.Code, ShouldEqual, "mastercard")
+			So(card.Company.Name, ShouldEqual, "Mastercard")
 		})
 
 		Convey("Should work for Visa Electron", func() {
 			card := Card{Number: "4026424242", Cvv: "1111", Month: month, Year: year}
-			err := card.Method()
+			err := card.Brand()
 
 			So(err, ShouldBeNil)
-			So(card.Company.Short, ShouldEqual, "visa electron")
-			So(card.Company.Long, ShouldEqual, "Visa Electron")
+			So(card.Company.Code, ShouldEqual, "visa electron")
+			So(card.Company.Name, ShouldEqual, "Visa Electron")
 		})
 
 		Convey("Should work for Visa", func() {
 			card := Card{Number: "4242424242", Cvv: "1111", Month: month, Year: year}
-			err := card.Method()
+			err := card.Brand()
 
 			So(err, ShouldBeNil)
-			So(card.Company.Short, ShouldEqual, "visa")
-			So(card.Company.Long, ShouldEqual, "Visa")
+			So(card.Company.Code, ShouldEqual, "visa")
+			So(card.Company.Name, ShouldEqual, "Visa")
+		})
+
+		Convey("Should work for Cabal", func() {
+			card := Card{Number: "604211212212", Cvv: "111", Month: month, Year: year}
+			err := card.Brand()
+
+			So(err, ShouldBeNil)
+			So(card.Company.Code, ShouldEqual, "cabal")
+			So(card.Company.Name, ShouldEqual, "Cabal")
 		})
 
 		Convey("Should fail to recognize an unknown number", func() {
 			card := Card{Number: "1112424242", Cvv: "1111", Month: month, Year: year}
-			err := card.Method()
+			err := card.Brand()
 
 			So(err, ShouldNotBeNil)
-			So(card.Company.Short, ShouldEqual, "")
-			So(card.Company.Long, ShouldEqual, "")
+			So(card.Company.Code, ShouldEqual, "")
+			So(card.Company.Name, ShouldEqual, "")
 		})
 	})
 }
