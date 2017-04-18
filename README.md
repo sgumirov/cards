@@ -6,6 +6,7 @@ Currently identifies the following credit card companies:
 * Aura
 * American Express
 * Bankcard
+* Cabal
 * China Unionpay
 * Dankort
 * Diners Club Carte Blanche
