@@ -35,8 +35,8 @@ go get github.com/hubcash/cards
 // Initialize a new card:
 card := creditcard.Card{Number: "4242424242424242", Cvv: "11111", Month: "02", Year: "2016"}
 
-// Retrieve the card's method (which credit card company this card belongs to)
-err := card.Method() // card.Company({Short: "visa", Long: "Visa"})
+// Retrieve the card's brand (which credit card company this card belongs to)
+err := card.Brand() // card.Brand({Code: "visa", Name: "Visa"})
 
 // Display last four digits
 lastFour, err := card.LastFour() // 4242
