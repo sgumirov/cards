@@ -52,7 +52,7 @@ func (c *Card) Wipe() {
 // Validate returns nil or an error describing why the credit card didn't validate
 // this method checks for expiration date, CCV/CVV and the credit card's numbers.
 // For allowing test cards to go through, simply pass true.(bool) as the first argument
-func (c *Card) Validate(allowTestNumbers ...bool) error {
+func (c *Card) Validate(skipCvv bool, allowTestNumbers ...bool) error {
 	var year, month int
 
 	// Format the expiration year
@@ -79,7 +79,7 @@ func (c *Card) Validate(allowTestNumbers ...bool) error {
 	}
 
 	// Validate the CVV length
-	if len(c.Cvv) < 3 || len(c.Cvv) > 4 {
+	if !skipCvv && len(c.Cvv) < 3 || len(c.Cvv) > 4 {
 		return errors.New("Invalid CVV")
 	}
 
