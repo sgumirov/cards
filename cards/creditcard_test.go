@@ -49,6 +49,22 @@ func TestWipe(t *testing.T) {
 	})
 }
 
+func TestNoCvv(t *testing.T) {
+	Convey("CVV should not matter if skipped", t, func(){
+		card := Card{Number: "4012888888881881", Month: "02", Year: "20"}
+		err := card.ValidateNoCvv(true)
+
+		So(err, ShouldBeNil)
+	})
+
+	Convey("CVV should matter if not skipped", t, func(){
+		card := Card{Number: "4012888888881881", Month: "02", Year: "20"}
+		err := card.Validate(true)
+
+		So(err, ShouldNotBeNil)
+	})
+}
+
 func TestValidation(t *testing.T) {
 	month := strconv.Itoa(int(time.Now().UTC().Month()))
 	year := strconv.Itoa(time.Now().UTC().Year())

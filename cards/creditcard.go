@@ -53,6 +53,29 @@ func (c *Card) Wipe() {
 // this method checks for expiration date, CCV/CVV and the credit card's numbers.
 // For allowing test cards to go through, simply pass true.(bool) as the first argument
 func (c *Card) Validate(allowTestNumbers ...bool) error {
+	if len(allowTestNumbers) > 0 {
+		return c.validate(false, allowTestNumbers[0])
+	}else {
+		return c.validate(false)
+	}
+}
+
+// Validate returns nil or an error describing why the credit card didn't validate
+// this method checks for expiration date and the credit card's numbers. CVV is not validated.
+// For allowing test cards to go through, simply pass true.(bool) as the second argument
+func (c *Card) ValidateNoCvv(allowTestNumbers ...bool) error {
+	if len(allowTestNumbers) > 0 {
+		return c.validate(true, allowTestNumbers[0])
+	}else {
+		return c.validate(true)
+	}
+}
+
+// Validate returns nil or an error describing why the credit card didn't validate
+// this method checks for expiration date, CCV/CVV (optional, see 1st arg) and the credit card's numbers.
+// For allowing test cards to go through, simply pass true.(bool) as the second argument.
+// First argument sets skipping of CVV validation.
+func (c *Card) validate(skipCvv bool, allowTestNumbers ...bool) error {
 	var year, month int
 
 	// Format the expiration year
@@ -79,7 +102,7 @@ func (c *Card) Validate(allowTestNumbers ...bool) error {
 	}
 
 	// Validate the CVV length
-	if len(c.Cvv) < 3 || len(c.Cvv) > 4 {
+	if !skipCvv && len(c.Cvv) < 3 || len(c.Cvv) > 4 {
 		return errors.New("Invalid CVV")
 	}
 
