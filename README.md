@@ -27,6 +27,13 @@ Currently identifies the following credit card companies:
 go get github.com/hubcash/cards
 ```
 
+## Attribution
+
+This library based on original one : https://github.com/hubcash/cards . Changes include but not limited to:
+* security fixes
+
+See commit history for a full list.
+
 ## Quick Start
 
 ```go
