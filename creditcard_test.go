@@ -195,6 +195,13 @@ func TestValidation(t *testing.T) {
 
 				So(err, ShouldBeNil)
 			})
+
+			Convey("Another Real Card", func() {
+				card := Card{Number: "4539216396812806", Cvv: "1111", Month: month, Year: year}
+				err := card.Validate()
+
+				So(err, ShouldBeNil)
+			})
 		})
 
 		Convey("With an invalid card", func() {
