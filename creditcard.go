@@ -77,17 +77,21 @@ func (c *Card) ValidateNoCvv(allowTestNumbers ...bool) error {
 // First argument sets skipping of CVV validation.
 func (c *Card) validate(skipCvv bool, allowTestNumbers ...bool) error {
 	var year, month int
+	var err error
 
 	// Format the expiration year
 	if len(c.Year) < 3 {
-		year, _ = strconv.Atoi(strconv.Itoa(time.Now().UTC().Year())[:2] + c.Year)
+		if year, err = strconv.Atoi(strconv.Itoa(time.Now().UTC().Year())[:2] + c.Year); err != nil {
+			return errors.New("Invalid year")
+		}
 	} else {
-		year, _ = strconv.Atoi(c.Year)
+		if year, err = strconv.Atoi(c.Year); err != nil {
+			return errors.New("Invalid year")
+		}
 	}
 
 	// Validate the expiration month
-	month, _ = strconv.Atoi(c.Month)
-	if month < 1 || 12 < month {
+	if month, err = strconv.Atoi(c.Month); err != nil || month < 1 || 12 < month{
 		return errors.New("Invalid month")
 	}
 
@@ -165,12 +169,15 @@ func (c *Card) Brand() error {
 func (c *Card) BrandValidate() (Company, error) {
 	ccLen := len(c.Number)
 	ccDigits := digits{}
+	var err error
 
 	// Take the first 6 digits of the card number,
 	// convert to a integer to allow easy comparison after
 	for i := 0; i < 6; i++ {
 		if i < ccLen {
-			ccDigits[i], _ = strconv.Atoi(c.Number[:i+1])
+			if ccDigits[i], err = strconv.Atoi(c.Number[:i+1]); err != nil {
+				return Company{"", ""}, errors.New("Unknown credit card brand")
+			}
 		}
 	}
 
@@ -268,8 +275,9 @@ func (c *Card) BrandValidate() (Company, error) {
 // http://en.wikipedia.org/wiki/Luhn_algorithm
 // ValidateNumber will check the credit card's number against the Luhn algorithm
 func (c *Card) ValidateNumber() bool {
-	var sum int
+	var sum, mod int
 	var alternate bool
+	var err error
 
 	// Gets the Card number length
 	numberLen := len(c.Number)
@@ -283,7 +291,9 @@ func (c *Card) ValidateNumber() bool {
 	// Parse all numbers of the card into a for loop
 	for i := numberLen - 1; i > -1; i-- {
 		// Takes the mod, converting the current number in integer
-		mod, _ := strconv.Atoi(string(c.Number[i]))
+		if mod, err = strconv.Atoi(string(c.Number[i])); err != nil {
+			return false
+		}
 		if alternate {
 			mod *= 2
 			if mod > 9 {
