@@ -24,7 +24,7 @@ Currently identifies the following credit card companies:
 ## Installation
 
 ```bash
-go get github.com/hubcash/cards
+go get github.com/sgumirov/go-cards-validation
 ```
 
 ## Attribution
